@@ -1,73 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>NAN GIARD</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #fff;
-      color: #000;
-      margin: 0;
-      padding: 0;
-    }
-    header {
-      padding: 20px;
-      font-size: 28px;
-      font-weight: bold;
-      text-align: left;
-    }
-    .gallery {
-      display: flex;
-      justify-content: center;
-      padding: 50px;
-    }
-    .gallery img {
-      max-width: 500px;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: transform 0.3s;
-    }
-    .gallery img:hover {
-      transform: scale(1.05);
-    }
-    /* Lightbox */
-    .lightbox {
-      display: none;
-      position: fixed;
-      z-index: 1000;
-      left: 0; top: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.9);
-      justify-content: center;
-      align-items: center;
-    }
-    .lightbox img {
-      max-width: 90%;
-      max-height: 90%;
-      border-radius: 10px;
-    }
-  </style>
-</head>
-<body>
-  <header>NAN GIARD</header>
+<div class="gallery" id="gallery"></div>
 
-  <div class="gallery">
-    <img src="https://raw.githubusercontent.com/nangiard/nangiard.github.io/main/_DSC9707.jpg" onclick="openLightbox(this)">
-  </div>
+<script>
+  const gallery = document.getElementById('gallery');
+  for (let i = 1; i <= 35; i++) {
+    const img = document.createElement('img');
+    const low = 'low' + (i < 10 ? '0' + i : i) + '.jpg';
+    const high = 'photo' + (i < 10 ? '0' + i : i) + '.jpg';
+    img.src = low;
+    img.setAttribute('data-highres', high);
+    img.onclick = function() { openLightbox(this); };
+    gallery.appendChild(img);
+  }
 
-  <div id="lightbox" class="lightbox" onclick="closeLightbox()">
-    <img id="lightbox-img">
-  </div>
+  function openLightbox(img) {
+    document.getElementById('lightbox').style.display = 'flex';
+    document.getElementById('lightbox-img').src = img.getAttribute('data-highres');
+  }
 
-  <script>
-    function openLightbox(img) {
-      document.getElementById('lightbox').style.display = 'flex';
-      document.getElementById('lightbox-img').src = img.src;
-    }
-    function closeLightbox() {
-      document.getElementById('lightbox').style.display = 'none';
-    }
-  </script>
-</body>
-</html>
+  function closeLightbox() {
+    document.getElementById('lightbox').style.display = 'none';
+  }
+</script>
