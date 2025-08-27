@@ -33,9 +33,9 @@
       padding: 10px;
     }
     .gallery img {
-      max-width: 100%;
-      height: auto; /* keep natural height */
-      border-radius: 0; /* no extra spacing */
+      max-width: auto;
+      height: 300px; /* keep natural height */
+      object-fit: contain;
       cursor: pointer;
       transition: transform 0.3s;
     }
@@ -67,25 +67,34 @@
     </div>
   </header>
 
-  <div class="gallery">
-    <img src="https://drive.google.com/uc?id=1fs4-A8muqpYpC6ebKnbKgWiGSku27Fl5" onclick="openLightbox(this)">
-    <img src="https://drive.google.com/uc?id=YOUR-SECOND-IMAGE-ID" onclick="openLightbox(this)">
-    <img src="https://drive.google.com/uc?id=YOUR-THIRD-IMAGE-ID" onclick="openLightbox(this)">
-    <!-- add more images here -->
-  </div>
+    <div class="gallery" id="gallery"></div>
 
   <div id="lightbox" class="lightbox" onclick="closeLightbox()">
     <img id="lightbox-img">
   </div>
 
   <script>
+    // Auto-generate gallery
+    const gallery = document.getElementById('gallery');
+    for (let i = 1; i <= 35; i++) {
+      const img = document.createElement('img');
+      const low = 'low' + (i < 10 ? '0' + i : i) + '.jpg';
+      const high = 'photo' + (i < 10 ? '0' + i : i) + '.jpg';
+      img.src = low;
+      img.setAttribute('data-highres', high);
+      img.onclick = function() { openLightbox(this); };
+      gallery.appendChild(img);
+    }
+
     function openLightbox(img) {
       document.getElementById('lightbox').style.display = 'flex';
-      document.getElementById('lightbox-img').src = img.src;
+      document.getElementById('lightbox-img').src = img.getAttribute('data-highres');
     }
+
     function closeLightbox() {
       document.getElementById('lightbox').style.display = 'none';
     }
   </script>
+
 </body>
 </html>
