@@ -33,11 +33,12 @@
       padding: 0px;
     }
     .gallery img {
-      width: auto;
-      height: 300px; /* fixed height for all images */
-      object-fit: contain;
-      cursor: pointer;
-      transition: transform 0.3s;
+  width: 100%;
+  height: auto;
+  max-height: 450px; /* cap the height */
+  object-fit: contain;
+  cursor: pointer;
+  transition: transform 0.3s;
     }
     .gallery img:hover {
       transform: scale(1.01);
@@ -68,8 +69,8 @@
       z-index: 1001;
     }
     #close { top: 10px; right: 20px; }
-    #prev { top: 50%; left: 10px; transform: translateY(-50%); }
-    #next { top: 50%; right: 10px; transform: translateY(-50%); }
+    #prev { top: 50%; left: 25px; transform: translateY(-50%); }
+    #next { top: 50%; right: 25px; transform: translateY(-50%); }
   </style>
 </head>
 <body>
