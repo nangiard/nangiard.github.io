@@ -31,10 +31,13 @@
   gap: 2px; /* tiny spacing */
   padding: 10px;
 }
-.gallery img {
-  width: 100%;
+    .gallery img {
+  width: auto;
   height: auto;
-  display: block;
+  max-height: 400px; /* cap the height */
+  object-fit: contain;
+  cursor: pointer;
+  transition: transform 0.3s;
     }
     .gallery img:hover {
       transform: scale(1.01);
