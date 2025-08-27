@@ -20,7 +20,7 @@
       padding: 20px;
     }
     header img {
-      height: 80px; /* your logo size */
+      height: 80px; /* logo size */
     }
     .contact {
       font-size: 16px;
@@ -33,8 +33,8 @@
       padding: 10px;
     }
     .gallery img {
-      max-width: auto;
-      height: 300px; /* keep natural height */
+      width: auto;
+      height: 300px; /* fixed height for all images */
       object-fit: contain;
       cursor: pointer;
       transition: transform 0.3s;
@@ -57,6 +57,19 @@
       max-width: 90%;
       max-height: 90%;
     }
+    /* Lightbox buttons */
+    #lightbox span {
+      position: absolute;
+      color: #fff;
+      font-size: 40px;
+      font-weight: bold;
+      cursor: pointer;
+      user-select: none;
+      z-index: 1001;
+    }
+    #close { top: 10px; right: 20px; }
+    #prev { top: 50%; left: 10px; transform: translateY(-50%); }
+    #next { top: 50%; right: 10px; transform: translateY(-50%); }
   </style>
 </head>
 <body>
@@ -67,15 +80,19 @@
     </div>
   </header>
 
-    <div class="gallery" id="gallery"></div>
+  <div class="gallery" id="gallery"></div>
 
-  <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+  <div id="lightbox" class="lightbox">
+    <span id="close" onclick="closeLightbox()">×</span>
+    <span id="prev" onclick="changePhoto(-1)">&#10094;</span>
     <img id="lightbox-img">
+    <span id="next" onclick="changePhoto(1)">&#10095;</span>
   </div>
 
   <script>
     // Auto-generate gallery
     const gallery = document.getElementById('gallery');
+    const galleryImgs = [];
     for (let i = 1; i <= 35; i++) {
       const img = document.createElement('img');
       const low = 'low' + (i < 10 ? '0' + i : i) + '.jpg';
@@ -84,15 +101,24 @@
       img.setAttribute('data-highres', high);
       img.onclick = function() { openLightbox(this); };
       gallery.appendChild(img);
+      galleryImgs.push(img);
     }
+
+    let currentIndex = 0;
 
     function openLightbox(img) {
       document.getElementById('lightbox').style.display = 'flex';
+      currentIndex = galleryImgs.indexOf(img);
       document.getElementById('lightbox-img').src = img.getAttribute('data-highres');
     }
 
     function closeLightbox() {
       document.getElementById('lightbox').style.display = 'none';
+    }
+
+    function changePhoto(direction) {
+      currentIndex = (currentIndex + direction + galleryImgs.length) % galleryImgs.length;
+      document.getElementById('lightbox-img').src = galleryImgs[currentIndex].getAttribute('data-highres');
     }
   </script>
 
