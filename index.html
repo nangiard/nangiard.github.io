@@ -25,16 +25,17 @@
     .contact {
       font-size: 16px;
     }
-    .gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* auto-resizes photos */
-  gap: 2px; /* tiny spacing */
-  padding: 10px;
-}
+     .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1px; /* tiny spacing */
+      justify-content: space-evenly;
+      padding: 0px;
+    }
     .gallery img {
   width: auto;
   height: auto;
-  max-height: 400px; /* cap the height */
+  max-height: 350px; /* cap the height */
   object-fit: contain;
   cursor: pointer;
   transition: transform 0.3s;
