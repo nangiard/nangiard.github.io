@@ -28,18 +28,21 @@
     /* Gallery */
     .gallery {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* fill screen */
-      gap: 5px;
-      padding: 15px;
-      max-width: 1200px;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* fill screen */
+      grid-auto-flow: dense;
+      gap: 3px;
+      padding: 5px;
+      max-width: 100%;
       margin: auto;
     }
     .gallery img {
-      width: 100%;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: transform 0.3s;
-    }
+  height: 200px; /* same height for all */
+  width: auto;    /* width adjusts */
+  object-fit: cover; /* crops nicely if needed */
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
     .gallery img:hover {
       transform: scale(1.05);
     }
