@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>NAN GIARD</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Lato', Arial, sans-serif;
+      background: #fff;
+      color: #333;
+      margin: 0;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+    }
+
+    .left {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
+
+    header img {
+      height: 80px;
+    }
+
+    .menu a {
+      text-decoration: none;
+      color: #818589;
+      font-size: 16px;
+      margin-right: 20px;
+      transition: opacity 0.2s;
+    }
+
+    .menu a:hover {
+      opacity: 0.8;
+      color: #fad410;
+    }
+
+    .contact {
+      font-size: 16px;
+    }
+
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1px;
+      justify-content: center;
+    }
+
+    .gallery img {
+      max-height: 370px;
+      border-radius: 10px;
+      object-fit: contain;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.01);
+    }
+
+    .lightbox {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.9);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+    }
+
+    #lightbox span {
+      position: absolute;
+      color: #fff;
+      font-size: 40px;
+      font-weight: bold;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    #close { top: 10px; right: 20px; }
+    #prev { top: 50%; left: 25px; transform: translateY(-50%); }
+    #next { top: 50%; right: 25px; transform: translateY(-50%); }
+
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="left">
+    <img src="logo.png" alt="Logo">
+
+    <nav class="menu">
+      <a href="fashion.html" class="active">Fashion/Editorial</a>
+      <a href="advertising.html">Advertising</a>
+    </nav>
+  </div>
+
+  <div class="contact">
+    info@nangiard.com | +372 5394 1527
+  </div>
+</header>
+
+<div class="gallery" id="gallery"></div>
+
+<div id="lightbox" class="lightbox">
+  <span id="close" onclick="closeLightbox()">×</span>
+  <span id="prev" onclick="changePhoto(-1)">&#10094;</span>
+  <img id="lightbox-img">
+  <span id="next" onclick="changePhoto(1)">&#10095;</span>
+</div>
+
+<script>
+  const gallery = document.getElementById('gallery');
+  const galleryImgs = [];
+
+  const prefix = "photo"; // change per page
+  const total = 35; // change per page
+
+  for (let i = 1; i <= total; i++) {
+    const num = i < 10 ? '0' + i : i;
+
+    const img = document.createElement('img');
+    const src = prefix + num + '.jpg';
+
+    img.src = src;
+    img.setAttribute('data-highres', src);
+
+    img.onclick = function() { openLightbox(this); };
+
+    gallery.appendChild(img);
+    galleryImgs.push(img);
+  }
+
+  let currentIndex = 0;
+
+  function openLightbox(img) {
+    document.getElementById('lightbox').style.display = 'flex';
+    currentIndex = galleryImgs.indexOf(img);
+    document.getElementById('lightbox-img').src = img.getAttribute('data-highres');
+  }
+
+  function closeLightbox() {
+    document.getElementById('lightbox').style.display = 'none';
+  }
+
+  function changePhoto(direction) {
+    currentIndex = (currentIndex + direction + galleryImgs.length) % galleryImgs.length;
+    document.getElementById('lightbox-img').src = galleryImgs[currentIndex].getAttribute('data-highres');
+  }
+</script>
+
+</body>
+</html>
