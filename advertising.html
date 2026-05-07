@@ -137,19 +137,19 @@ const photos = [
   {
     low: "Advertising/L_Advert(1).jpg",
     high: "Advertising/H_Advert(1).jpg",
-    label: "Guess Smart Luxury"
+    label: "Guess Smart Luxury",
     year: "2017"
   },
   {
     low: "Advertising/L_Advert(2).jpg",
     high: "Advertising/H_Advert(2).jpg",
-    label: "Guess Smart Luxury"
+    label: "Guess Smart Luxury",
     year: "2016"
   },
   {
     low: "Advertising/L_Advert(3).jpg",
     high: "Advertising/H_Advert(3).jpg",
-    label: "HBO"
+    label: "HBO",
     year: "2021"
   }
 ];
@@ -171,6 +171,7 @@ photos.forEach((photo) => {
   const overlay = document.createElement('div');
   overlay.classList.add('overlay');
   overlay.innerText = photo.label;
+  overlay.innerText = `${photo.label} (${photo.year})`;
 
   wrapper.appendChild(img);
   wrapper.appendChild(overlay);
