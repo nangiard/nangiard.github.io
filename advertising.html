@@ -130,24 +130,27 @@
 
 <script>
   const gallery = document.getElementById('gallery');
-  const galleryImgs = [];
+const galleryImgs = [];
 
-  const prefix = "photo"; // change per page
-  const total = 35; // change per page
+const total = 7;
 
-  for (let i = 1; i <= total; i++) {
-    const num = i < 10 ? '0' + i : i;
+for (let i = 1; i <= total; i++) {
+  const num = i;
 
-    const img = document.createElement('img');
-    const src = prefix + num + '.jpg';
+  const img = document.createElement('img');
 
-    img.src = src;
-    img.setAttribute('data-highres', src);
+  const lowRes = `Advertising/L_Advert(${num}).jpg`;
+  const highRes = `Advertising/H_Advert(${num}).jpg`;
 
-    img.onclick = function() { openLightbox(this); };
+  img.src = lowRes;
+  img.setAttribute('data-highres', highRes);
 
-    gallery.appendChild(img);
-    galleryImgs.push(img);
+  img.onclick = function () {
+    openLightbox(this);
+  };
+
+  gallery.appendChild(img);
+  galleryImgs.push(img);
   }
 
   let currentIndex = 0;
