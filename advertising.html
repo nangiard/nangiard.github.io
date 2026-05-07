@@ -60,6 +60,7 @@
     position: relative;
     display: inline-block;
     overflow: hidden;
+    border-radius: 10px;
   }
 
   .img-wrap img {
@@ -79,14 +80,13 @@
   .overlay {
     position: absolute;
     inset: 0;
-    background: rgba(200, 200, 200, 0.6);
+    background: rgba(200, 200, 200, 0);
     color: #544f33;
     display: flex;
     align-items: center;
     justify-content: center;
     opacity: 0;
     transition: 0.25s ease;
-    border-radius: 10px;
     pointer-events: none;
     font-size: 16px;
   }
@@ -94,7 +94,6 @@
   .img-wrap:hover .overlay {
     background: rgba(200, 200, 200, 0.6);
     opacity: 1;
-    border-radius: 10px;
   }
 
   .lightbox {
