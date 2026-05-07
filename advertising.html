@@ -129,29 +129,55 @@
 </div>
 
 <script>
-  const gallery = document.getElementById('gallery');
+const gallery = document.getElementById('gallery');
 const galleryImgs = [];
 
-const total = 7;
+// 👇 Add your photos here
+const photos = [
+  {
+    low: "Advertising/L_Advert(1).jpg",
+    high: "Advertising/H_Advert(1).jpg",
+    label: "Guess Smart Luxury"
+    year: "2017"
+  },
+  {
+    low: "Advertising/L_Advert(2).jpg",
+    high: "Advertising/H_Advert(2).jpg",
+    label: "Guess Smart Luxury"
+    year: "2016"
+  },
+  {
+    low: "Advertising/L_Advert(3).jpg",
+    high: "Advertising/H_Advert(3).jpg",
+    label: "HBO"
+    year: "2021"
+  }
+];
 
-for (let i = 1; i <= total; i++) {
-  const num = i;
+// 👇 This replaces your old loop
+photos.forEach((photo) => {
+  const wrapper = document.createElement('div');
+  wrapper.classList.add('img-wrap');
 
   const img = document.createElement('img');
 
-  const lowRes = `Advertising/L_Advert(${num}).jpg`;
-  const highRes = `Advertising/H_Advert(${num}).jpg`;
-
-  img.src = lowRes;
-  img.setAttribute('data-highres', highRes);
+  img.src = photo.low;
+  img.setAttribute('data-highres', photo.high);
 
   img.onclick = function () {
     openLightbox(this);
   };
 
-  gallery.appendChild(img);
+  const overlay = document.createElement('div');
+  overlay.classList.add('overlay');
+  overlay.innerText = photo.label;
+
+  wrapper.appendChild(img);
+  wrapper.appendChild(overlay);
+
+  gallery.appendChild(wrapper);
   galleryImgs.push(img);
-  }
+});
 
   let currentIndex = 0;
 
