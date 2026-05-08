@@ -95,17 +95,18 @@
     font-weight: normal;
     text-shadow: 0 0 3px rgba(0,0,0,0.8);
     display: flex;
-    align-items: center;
-    justify-content: flex-end;
+    align-items: flex-end;
+    justify-content: center;
     opacity: 0;
     transition: 0.25s ease;
     pointer-events: none;
-    font-size: 16px;
+    font-size: 14px;
   }
 
   .overlay span {
     display: block;
-    width: 100%;
+    width: calc(100% - 40px);
+    margin-bottom: 20px;
     background: rgba(0, 0, 0, 0.8); /* or your accent */
     color: #fff;
     padding: 10px 0;
@@ -113,6 +114,7 @@
     font-size: 14px;
     letter-spacing: 1px;
     text-transform: uppercase;
+}
   }
     
   .img-wrap:hover .overlay {
