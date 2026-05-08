@@ -7,6 +7,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400&display=swap" rel="stylesheet">
 
   <style>
+    :root {
+      --accent: #fad410;
+  }
+    
   body {
     font-family: 'Lato', Arial, sans-serif;
     background: #fff;
@@ -41,11 +45,11 @@
 
   .menu a:hover {
     opacity: 0.8;
-    color: #fad410;
+    color: var(--accent);
   }
 
     .menu a.active {
-  color: #fad410;
+  color: var(--accent);
   opacity: 0.8;
 }
 
@@ -85,7 +89,7 @@
   .overlay {
     position: absolute;
     inset: 0;
-    background: rgba(94, 91, 70, 0.8);
+    background: rgba(250, 212, 16, 0.8);
     color: #FFFFFF;
     font-family: 'Lato', Arial, sans-serif;
     font-weight: bold;
