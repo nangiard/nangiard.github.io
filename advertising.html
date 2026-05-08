@@ -103,6 +103,14 @@
     font-size: 17px;
   }
 
+    .overlay span {
+      background: rgba(0, 0, 0, 0.6); /* or use your accent */
+      color: #fff;
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+  }
+    
   .img-wrap:hover .overlay {
     background: rgba(250, 212, 16, 0.3);
     opacity: 1;
@@ -235,7 +243,7 @@ photos.forEach((photo) => {
   const overlay = document.createElement('div');
   overlay.classList.add('overlay');
   overlay.innerText = photo.label;
-  overlay.innerText = `${photo.label} - ${photo.year}`;
+  overlay.innerHTML = `<span>${photo.label} - ${photo.year}</span>`;
 
   wrapper.appendChild(img);
   wrapper.appendChild(overlay);
