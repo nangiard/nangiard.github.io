@@ -47,6 +47,63 @@
     .contact {
       font-size: 16px;
     }
+
+    .ba-slider {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    margin: 60px auto;
+    overflow: hidden;
+    border-radius: 10px;
+
+    touch-action: none;
+  }
+
+    .ba-slider img {
+      width: 100%;
+      display: block;
+    }
+
+    .before {
+      position: relative;
+      z-index: 1;
+    }
+
+    .after {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 2;
+
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+
+      clip-path: inset(0 50% 0 0);
+    }
+
+    .ba-handle {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+
+      height: 100%;
+      width: 40px;
+
+      z-index: 3;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      cursor: ew-resize;
+      user-select: none;
+
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+    }
   </style>
 </head>
 
@@ -67,5 +124,51 @@
     info@nangiard.com | +372 5394 1527
   </div>
 </header>
+
+  <div class="ba-slider" id="ba-slider">
+    <img src="Antes.jpg" class="ba-img before" alt="before">
+    <img src="Depois.jpg" class="ba-img after" alt="after">
+
+    <div class="ba-handle">&lt;&gt;</div>
+  </div>
+
+  <script>
+    const slider = document.getElementById('ba-slider');
+    const afterImg = slider.querySelector('.after');
+    const handle = slider.querySelector('.ba-handle');
+
+    let isDown = false;
+
+    function moveSlider(clientX) {
+      const rect = slider.getBoundingClientRect();
+      let x = clientX - rect.left;
+
+      if (x < 0) x = 0;
+      if (x > rect.width) x = rect.width;
+
+      const percent = (x / rect.width) * 100;
+
+      afterImg.style.clipPath = `inset(0 ${100 - percent}% 0 0)`;
+      handle.style.left = percent + '%';
+    }
+
+    /* desktop */
+    handle.addEventListener('mousedown', () => isDown = true);
+    window.addEventListener('mouseup', () => isDown = false);
+
+    window.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      moveSlider(e.clientX);
+    });
+
+    /* mobile */
+    handle.addEventListener('touchstart', () => isDown = true);
+    window.addEventListener('touchend', () => isDown = false);
+
+    window.addEventListener('touchmove', (e) => {
+      if (!isDown) return;
+      moveSlider(e.touches[0].clientX);
+    });
+  </script>
 </body>
 </html>
