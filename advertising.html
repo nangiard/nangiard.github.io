@@ -64,93 +64,63 @@
     justify-content: center;
   }
 
-  /* ✅ WRAPPER (this is what fixes overlay positioning) */
-  .img-wrap {
-    position: relative;
-    display: inline-block;
-    overflow: hidden;
-    border-radius: 10px;
-  }
+ .gallery img {
+      max-height: 370px;
+      border-radius: 10px;
+      object-fit: contain;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
 
-  .img-wrap img {
-    max-height: 370px;
-    border-radius: 10px;
-    object-fit: contain;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-    display: block;
-  }
+    .gallery img:hover {
+      transform: scale(1.01);
+    }
 
-  .img-wrap:hover img {
-    transform: scale(1.03);
-  }
+    .lightbox {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.9);
+      justify-content: center;
+      align-items: center;
+    }
 
-  /* ✅ OVERLAY ON TOP OF IMAGE */
-  .overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(250, 212, 16, 0.3);
-    color: #FFFFFF;
-    font-family: 'Lato', Arial, sans-serif;
-    font-weight: normal;
-    text-shadow: 0 0 3px rgba(0,0,0,0.8);
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    opacity: 0;
-    transition: 0.25s ease;
-    pointer-events: none;
-    font-size: 14px;
-  }
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      display: block;
+    }
+    #lightbox-caption {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
 
-  .overlay span {
-    display: block;
-    width: calc(100% - 40px);
-    margin-bottom: 20px;
-    background: rgba(0, 0, 0, 0.6); /* or your accent */
-    color: #fff;
-    padding: 10px 0;
-    text-align: center;
-    font-size: 14px;
-    letter-spacing: 1px;
-    text-transform: none;
-  }
-    
-  .img-wrap:hover .overlay {
-    background: rgba(250, 212, 16, 0.3);
-    opacity: 1;
-  }
+      background: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      padding: 10px 16px;
+      border-radius: 6px;
 
-  .lightbox {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.9);
-    justify-content: center;
-    align-items: center;
-  }
+      font-size: 14px;
+      text-align: center;
+      pointer-events: none;
+    }
+    #lightbox span {
+      position: absolute;
+      color: #fff;
+      font-size: 40px;
+      font-weight: bold;
+      cursor: pointer;
+      user-select: none;
+    }
 
-  .lightbox img {
-    max-width: 90%;
-    max-height: 90%;
-  }
-
-  #lightbox span {
-    position: absolute;
-    color: #fff;
-    font-size: 40px;
-    font-weight: bold;
-    cursor: pointer;
-    user-select: none;
-  }
-
-  #close { top: 10px; right: 20px; }
-  #prev { top: 50%; left: 25px; transform: translateY(-50%); }
-  #next { top: 50%; right: 25px; transform: translateY(-50%); }
+    #close { top: 10px; right: 20px; }
+    #prev { top: 50%; left: 25px; transform: translateY(-50%); }
+    #next { top: 50%; right: 25px; transform: translateY(-50%); }
 
 </style>
 </head>
@@ -179,6 +149,7 @@
   <span id="close" onclick="closeLightbox()">×</span>
   <span id="prev" onclick="changePhoto(-1)">&#10094;</span>
   <img id="lightbox-img">
+  <div id="lightbox-caption"></div>
   <span id="next" onclick="changePhoto(1)">&#10095;</span>
 </div>
 
@@ -186,94 +157,112 @@
 const gallery = document.getElementById('gallery');
 const galleryImgs = [];
 
-// 👇 Add your photos here
+// 🎯 MANUAL PHOTO DATA
 const photos = [
   {
     low: "Advertising/L_Advert(1).jpg",
     high: "Advertising/H_Advert(1).jpg",
-    label: "Guess Smart Luxury",
-    year: "2017"
+    caption: "Guess Smart Luxury | 2017"
   },
   {
     low: "Advertising/L_Advert(2).jpg",
     high: "Advertising/H_Advert(2).jpg",
-    label: "Guess Smart Luxury",
-    year: "2016"
+    caption: "Guess Smart Luxury | 2016"
   },
   {
     low: "Advertising/L_Advert(3).jpg",
     high: "Advertising/H_Advert(3).jpg",
-    label: "HBO",
-    year: "2021"
+    caption: "HBO | 2021"
   },
-   {
+  {
     low: "Advertising/L_Advert(4).jpg",
     high: "Advertising/H_Advert(4).jpg",
-    label: "BioRitmo",
-    year: "2017"
+    caption: "BioRitmo | 2017"
   },
-   {
+  {
     low: "Advertising/L_Advert(5).jpg",
     high: "Advertising/H_Advert(5).jpg",
-    label: "BioRitmo",
-    year: "2017"
+    caption: "BioRitmo | 2017"
   },
-   {
+  {
     low: "Advertising/L_Advert(6).jpg",
     high: "Advertising/H_Advert(6).jpg",
-    label: "Nós",
-    year: "2018"
+    caption: "Nós | 2018"
   },
-   {
+  {
     low: "Advertising/L_Advert(7).jpg",
     high: "Advertising/H_Advert(7).jpg",
-    label: "Domino's",
-    year: "2017"
+    caption: "Nike | 2015"
+  },
+  {
+    low: "Advertising/L_Advert(8).jpg",
+    high: "Advertising/H_Advert(8).jpg",
+    caption: "Nike | 2015"
+  },
+  {
+    low: "Advertising/L_Advert(9).jpg",
+    high: "Advertising/H_Advert(9).jpg",
+    caption: "AVON | 2015"
+  },
+  {
+    low: "Advertising/L_Advert(10).jpg",
+    high: "Advertising/H_Advert(10).jpg",
+    caption: "AVON | 2015"
+  },
+  {
+    low: "Advertising/L_Advert(11).jpg",
+    high: "Advertising/H_Advert(11).jpg",
+    caption: "Domino's Pizza | 2015"
   }
 ];
 
+// 🖼️ BUILD GALLERY
 photos.forEach((photo) => {
-  const wrapper = document.createElement('div');
-  wrapper.classList.add('img-wrap');
-
   const img = document.createElement('img');
 
   img.src = photo.low;
   img.setAttribute('data-highres', photo.high);
+  img.setAttribute('data-caption', photo.caption);
 
   img.onclick = function () {
     openLightbox(this);
   };
 
-  const overlay = document.createElement('div');
-  overlay.classList.add('overlay');
-  overlay.innerText = photo.label;
-  overlay.innerHTML = `<span>${photo.label} - ${photo.year}</span>`;
-
-  wrapper.appendChild(img);
-  wrapper.appendChild(overlay);
-
-  gallery.appendChild(wrapper);
+  gallery.appendChild(img);
   galleryImgs.push(img);
 });
 
-  let currentIndex = 0;
+let currentIndex = 0;
 
-  function openLightbox(img) {
-    document.getElementById('lightbox').style.display = 'flex';
-    currentIndex = galleryImgs.indexOf(img);
-    document.getElementById('lightbox-img').src = img.getAttribute('data-highres');
-  }
+// 🔍 OPEN LIGHTBOX
+function openLightbox(img) {
+  document.getElementById('lightbox').style.display = 'flex';
 
-  function closeLightbox() {
-    document.getElementById('lightbox').style.display = 'none';
-  }
+  currentIndex = galleryImgs.indexOf(img);
 
-  function changePhoto(direction) {
-    currentIndex = (currentIndex + direction + galleryImgs.length) % galleryImgs.length;
-    document.getElementById('lightbox-img').src = galleryImgs[currentIndex].getAttribute('data-highres');
-  }
+  document.getElementById('lightbox-img').src =
+    img.getAttribute('data-highres');
+
+  document.getElementById('lightbox-caption').textContent =
+    img.getAttribute('data-caption');
+}
+
+// ❌ CLOSE LIGHTBOX
+function closeLightbox() {
+  document.getElementById('lightbox').style.display = 'none';
+}
+
+// ⬅️➡️ NAVIGATE
+function changePhoto(direction) {
+  currentIndex =
+    (currentIndex + direction + galleryImgs.length) % galleryImgs.length;
+
+  const currentImg = galleryImgs[currentIndex];
+
+  document.getElementById('lightbox-img').src =
+    currentImg.getAttribute('data-highres');
+
+  document.getElementById('lightbox-caption').textContent =
+    currentImg.getAttribute('data-caption');
+}
 </script>
-
-</body>
-</html>
