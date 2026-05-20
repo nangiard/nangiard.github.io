@@ -49,61 +49,62 @@
     }
 
     .ba-slider {
-    position: relative;
-    width: 100%;
-    max-width: 900px;
-    margin: 60px auto;
-    overflow: hidden;
-    border-radius: 10px;
-
-    touch-action: none;
-  }
-
+      position: relative;
+      width: 100%;
+      max-width: 900px;
+      margin: 60px auto;
+      overflow: hidden;
+      border-radius: 10px;
+    
+      touch-action: none;
+    }
+    
     .ba-slider img {
       width: 100%;
       display: block;
     }
-
+    
     .before {
       position: relative;
       z-index: 1;
     }
-
+    
     .after {
       position: absolute;
       top: 0;
       left: 0;
       z-index: 2;
-
+    
       height: 100%;
       width: 100%;
       object-fit: cover;
-
+    
       clip-path: inset(0 50% 0 0);
     }
-
+    
     .ba-handle {
       position: absolute;
       top: 0;
       left: 50%;
       transform: translateX(-50%);
-
+    
       height: 100%;
       width: 40px;
-
+    
       z-index: 3;
-
+    
       display: flex;
       align-items: center;
       justify-content: center;
-
+    
       cursor: ew-resize;
       user-select: none;
-
+    
       color: white;
       font-size: 18px;
       font-weight: bold;
     }
+      
   </style>
 </head>
 
