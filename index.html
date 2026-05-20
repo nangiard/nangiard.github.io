@@ -7,6 +7,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400&display=swap" rel="stylesheet">
 
   <style>
+    :root {
+      --accent: #fad410;
+    }
+
     body {
       font-family: 'Lato', Arial, sans-serif;
       background: #fff;
@@ -41,7 +45,7 @@
 
     .menu a:hover {
       opacity: 0.8;
-      color: #fad410;
+      color: var(--accent);
     }
 
     .contact {
@@ -104,10 +108,10 @@
       content: "";
       position: absolute;
 
-      width: 2px;
+      width: 3px;
       height: 100%;
 
-      background: black;
+      background: var(--accent);
 
       left: 50%;
       transform: translateX(-50%);
@@ -117,7 +121,7 @@
 
       position: absolute;
 
-      background: rgba(0,0,0,0.75);
+      background: var(--accent);
       color: white;
 
       padding: 10px 14px;
